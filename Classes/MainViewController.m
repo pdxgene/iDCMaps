@@ -18,6 +18,7 @@
 @synthesize mapView;
 @synthesize infoTextView;
 @synthesize managedObjectContext;
+@synthesize saveButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -26,6 +27,9 @@
     return self;
 }
 
+- (IBAction)saveMap{
+    [self addMap];
+}
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
@@ -132,6 +136,7 @@
 	 */
 	Map *newMap = (Map *)[NSEntityDescription insertNewObjectForEntityForName:@"Map" inManagedObjectContext:managedObjectContext];
 	
+    [newMap setTitle:@"Test map title"];
     
 	// If it's not possible to get a location, then start with it blank.
 	CLLocation *location = [locationManager location];
