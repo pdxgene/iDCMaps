@@ -8,9 +8,11 @@
 
 #import "MainView.h"
 
-#import "RMCloudMadeMapSource.h"
-#import "RMOpenCycleMapSource.h"
+//#import "RMCloudMadeMapSource.h"
+//#import "RMOpenCycleMapSource.h"
+#import "RMOpenStreetMapSource.h"
 #import "Map.h"
+#import "Tile.h"
 
 
 @implementation MainViewController
@@ -21,7 +23,7 @@
 @synthesize saveButton;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         // Custom initialization
     }
     return self;
@@ -33,6 +35,9 @@
     float lon = mapCenter.longitude;
     float lat = mapCenter.latitude;
 
+    //create an instance of the Map object in Core Data:
+    [self addMap];
+    
     int z = contents.zoom;
 
     int solx = (int)(floor((lon + 180.0) / 360.0 * pow(2.0, z)));
@@ -42,30 +47,35 @@
     NSLog(@"soly = %d", soly);
     NSLog(@"zoom = %d", z);
 
-//Neighbor tiles    
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx+1, soly+1);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx+1, soly-1);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx, soly+1);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx+1, soly);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx, soly);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx-1, soly);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx, soly-1);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx-1, soly+1);
-    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx-1, soly-1);
-    
+    //1. Save the tile covering this lat/lng:
+    NSLog(@"this tile:");
+    [self addTile:z atTileX:solx atTileY:soly];
 
-    //down two levels
-    int zl = z+2;
-    //4x,4y
-    int solxl = 4*solx;
-    int solyl = 4*soly;
+    NSLog(@"Neighbor tiles:");
+    //1. Save 8 "neighbor" tiles that surround the tile covering this lat/lng:
+    [self addTile:z atTileX:solx+1 atTileY:soly+1];
+    [self addTile:z atTileX:solx+1 atTileY:soly-1];
+    [self addTile:z atTileX:solx atTileY:soly+1];
+    [self addTile:z atTileX:solx+1 atTileY:soly];
+    [self addTile:z atTileX:solx-1 atTileY:soly];
+    [self addTile:z atTileX:solx atTileY:soly-1];
+    [self addTile:z atTileX:solx-1 atTileY:soly+1];
+    [self addTile:z atTileX:solx-1 atTileY:soly-1];    
+
+    NSLog(@"zoom in one level:");
+    //save the four tiles one level closer (zoom in)
+    int zl = z+1;
+    //2x,2y
+    int solxl = 2*solx;
+    int solyl = 2*soly;
     NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", zl, solxl, solyl);
     //2x+1, 2y
     //2x,2y+1
     //2x+1, 2y+1
     
     
-    //up one level
+    NSLog(@"zoom out one level:");
+    //save four tiles one level further (zoom out)
     int zu = z-1;
     int solxu = solx/2;
     int solyu = soly/2;
@@ -82,7 +92,6 @@
     NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", zu, solx1u, soly1u);
 
     
-    [self addMap];
 }
 
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
@@ -109,7 +118,8 @@
 
 
     [mapView setDelegate:self];
-	id myTilesource = [[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:999] autorelease];
+    id myTilesource = [[RMOpenStreetMapSource alloc] init];
+//	id myTilesource = [[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:999] autorelease];
 //    id myTilesource = [[[RMOpenCycleMapSource alloc] init] autorelease];
 	// have to initialize the RMMapContents object explicitly if we want it to use a particular tilesource
 	[[[RMMapContents alloc] initWithView:mapView 
@@ -209,6 +219,42 @@
 	// Should be the location's timestamp, but this will be constant for simulator.
 	// [event setCreationDate:[location timestamp]];
         
+	// Commit the change.
+	NSError *error;
+	if (![managedObjectContext save:&error]) {
+		// Handle the error.
+	}
+	
+	/*
+	 Since this is a new event, and events are displayed with most recent events at the top of the list,
+	 add the new event to the beginning of the events array; then redisplay the table view.
+	 */
+    NSLog(@"added");
+    
+}
+
+/**
+ Add a map to the list
+ */
+- (void)addTile:(int)zoom atTileX:(int)x atTileY:(int)y {
+    NSLog(@"add tile from data:");
+    NSLog(@"zoom: %d", zoom);
+    NSLog(@"x: %d", x);
+    NSLog(@"y: %d", y);
+    
+    //fetch and save map tile from OSM tile server:
+    NSString *urlString = [[[NSString alloc] initWithFormat:@"http://tile.openstreetmaps.org/%d/%d/%d.png", zoom, x, y] autorelease];
+    NSLog(@"fetch and save: %@", urlString);
+
+	/*
+	 Create a new instance of the Tile entity.
+	 */
+	Tile *newTile = (Tile *)[NSEntityDescription insertNewObjectForEntityForName:@"Tile" inManagedObjectContext:managedObjectContext];
+	    
+    [newTile setX:[NSNumber numberWithInt:x]];
+    [newTile setY:[NSNumber numberWithInt:y]];
+    [newTile setZ:[NSNumber numberWithInt:zoom]];
+    
 	// Commit the change.
 	NSError *error;
 	if (![managedObjectContext save:&error]) {

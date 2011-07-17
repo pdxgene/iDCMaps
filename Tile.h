@@ -1,3 +1,10 @@
+//
+//  Tile.h
+//  iDCMaps
+//
+//  Created by Gene Ehrbar on 7/17/11.
+//  Copyright (c) 2011 ISITE Design. All rights reserved.
+//
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
@@ -7,8 +14,10 @@
 @interface Tile : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSString * url;
 @property (nonatomic, retain) NSData * imgData;
-@property (nonatomic, retain) Map * MapTile;
+@property (nonatomic, retain) NSNumber * z;
+@property (nonatomic, retain) NSNumber * x;
+@property (nonatomic, retain) NSNumber * y;
+@property (nonatomic, retain) NSSet* maps;
 
 @end

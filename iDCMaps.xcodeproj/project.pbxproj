@@ -22,10 +22,10 @@
 		B037367713D249F200EC2120 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B037367613D249F200EC2120 /* CoreData.framework */; };
 		B037367D13D24BAE00EC2120 /* SavedMaps.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B037367B13D24BAE00EC2120 /* SavedMaps.xcdatamodeld */; };
 		B037368713D24E2600EC2120 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = B037368613D24E2600EC2120 /* Map.m */; };
-		B037368A13D24E2600EC2120 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = B037368913D24E2600EC2120 /* Tile.m */; };
 		B037369013D2511000EC2120 /* SavedMapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B037368E13D2511000EC2120 /* SavedMapsViewController.m */; };
 		B037369113D2511000EC2120 /* SavedMapsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B037368F13D2511000EC2120 /* SavedMapsViewController.xib */; };
 		B059F72313D26A4600820E24 /* iDCMapsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B059F72213D26A4600820E24 /* iDCMapsAppDelegate.m */; };
+		B0D729B413D33119006E89F8 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D729B313D33119006E89F8 /* Tile.m */; };
 		EBDDE0E00F649CE100377FFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */; };
 		EBDDE0E20F649CE100377FFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E10F649CE100377FFE /* QuartzCore.framework */; };
 		EBDDE0E40F649CE100377FFE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E30F649CE100377FFE /* libsqlite3.dylib */; };
@@ -88,13 +88,13 @@
 		B037367C13D24BAE00EC2120 /* SavedMaps.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedMaps.xcdatamodel; sourceTree = "<group>"; };
 		B037368513D24E2600EC2120 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
 		B037368613D24E2600EC2120 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
-		B037368813D24E2600EC2120 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
-		B037368913D24E2600EC2120 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		B037368D13D2511000EC2120 /* SavedMapsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedMapsViewController.h; sourceTree = "<group>"; };
 		B037368E13D2511000EC2120 /* SavedMapsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedMapsViewController.m; sourceTree = "<group>"; };
 		B037368F13D2511000EC2120 /* SavedMapsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SavedMapsViewController.xib; path = Classes/SavedMapsViewController.xib; sourceTree = "<group>"; };
 		B059F72113D26A4600820E24 /* iDCMapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iDCMapsAppDelegate.h; path = Classes/iDCMapsAppDelegate.h; sourceTree = "<group>"; };
 		B059F72213D26A4600820E24 /* iDCMapsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iDCMapsAppDelegate.m; path = Classes/iDCMapsAppDelegate.m; sourceTree = "<group>"; };
+		B0D729B213D33119006E89F8 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		B0D729B313D33119006E89F8 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EBDDE0E10F649CE100377FFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EBDDE0E30F649CE100377FFE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -219,10 +219,10 @@
 		B037368413D24E0800EC2120 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				B037368813D24E2600EC2120 /* Tile.h */,
-				B037368913D24E2600EC2120 /* Tile.m */,
 				B037368513D24E2600EC2120 /* Map.h */,
 				B037368613D24E2600EC2120 /* Map.m */,
+				B0D729B213D33119006E89F8 /* Tile.h */,
+				B0D729B313D33119006E89F8 /* Tile.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -338,11 +338,11 @@
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
 				B037367D13D24BAE00EC2120 /* SavedMaps.xcdatamodeld in Sources */,
 				B037368713D24E2600EC2120 /* Map.m in Sources */,
-				B037368A13D24E2600EC2120 /* Tile.m in Sources */,
 				B037369013D2511000EC2120 /* SavedMapsViewController.m in Sources */,
 				B019969B13D259C700C1CBA9 /* MainViewController.m in Sources */,
 				B019969E13D259D000C1CBA9 /* RootViewController.m in Sources */,
 				B059F72313D26A4600820E24 /* iDCMapsAppDelegate.m in Sources */,
+				B0D729B413D33119006E89F8 /* Tile.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

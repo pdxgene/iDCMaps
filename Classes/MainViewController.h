@@ -20,7 +20,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *saveButton;
 
 - (void)updateInfo;
-- (void)addMap;
 - (IBAction)saveMap;
-
+- (void)addMap;
+- (void)addTile:(int)zoom atTileX:(int)x atTileY:(int)y;
 @end
