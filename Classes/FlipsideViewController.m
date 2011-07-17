@@ -4,7 +4,7 @@
 //
 
 #import "FlipsideViewController.h"
-#import "SampleMapAppDelegate.h"
+#import "iDCMapsAppDelegate.h"
 
 
 @implementation FlipsideViewController
@@ -72,7 +72,7 @@
 
 - (RMMapContents *)contents
 {
-	return [(SampleMapAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
+	return [(iDCMapsAppDelegate *)[[UIApplication sharedApplication] delegate] mapContents];
 }
 
 - (IBAction)clearSharedNSURLCache

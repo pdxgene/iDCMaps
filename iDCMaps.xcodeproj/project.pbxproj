@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D3623260D0F684500981E51 /* SampleMapAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* SampleMapAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -26,6 +25,7 @@
 		B037368A13D24E2600EC2120 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = B037368913D24E2600EC2120 /* Tile.m */; };
 		B037369013D2511000EC2120 /* SavedMapsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B037368E13D2511000EC2120 /* SavedMapsViewController.m */; };
 		B037369113D2511000EC2120 /* SavedMapsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B037368F13D2511000EC2120 /* SavedMapsViewController.xib */; };
+		B059F72313D26A4600820E24 /* iDCMapsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B059F72213D26A4600820E24 /* iDCMapsAppDelegate.m */; };
 		EBDDE0E00F649CE100377FFE /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */; };
 		EBDDE0E20F649CE100377FFE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E10F649CE100377FFE /* QuartzCore.framework */; };
 		EBDDE0E40F649CE100377FFE /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDDE0E30F649CE100377FFE /* libsqlite3.dylib */; };
@@ -65,8 +65,6 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* SampleMapAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SampleMapAppDelegate.h; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* SampleMapAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SampleMapAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* iDCMaps.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iDCMaps.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		280E754A0DD40C5E005A515E /* FlipsideView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FlipsideView.xib; sourceTree = "<group>"; };
@@ -95,6 +93,8 @@
 		B037368D13D2511000EC2120 /* SavedMapsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SavedMapsViewController.h; sourceTree = "<group>"; };
 		B037368E13D2511000EC2120 /* SavedMapsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SavedMapsViewController.m; sourceTree = "<group>"; };
 		B037368F13D2511000EC2120 /* SavedMapsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SavedMapsViewController.xib; path = Classes/SavedMapsViewController.xib; sourceTree = "<group>"; };
+		B059F72113D26A4600820E24 /* iDCMapsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iDCMapsAppDelegate.h; path = Classes/iDCMapsAppDelegate.h; sourceTree = "<group>"; };
+		B059F72213D26A4600820E24 /* iDCMapsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iDCMapsAppDelegate.m; path = Classes/iDCMapsAppDelegate.m; sourceTree = "<group>"; };
 		EBDDE0DF0F649CE100377FFE /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		EBDDE0E10F649CE100377FFE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		EBDDE0E30F649CE100377FFE /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
@@ -125,8 +125,6 @@
 			children = (
 				B019969C13D259D000C1CBA9 /* RootViewController.h */,
 				B019969D13D259D000C1CBA9 /* RootViewController.m */,
-				1D3623240D0F684500981E51 /* SampleMapAppDelegate.h */,
-				1D3623250D0F684500981E51 /* SampleMapAppDelegate.m */,
 				B037368D13D2511000EC2120 /* SavedMapsViewController.h */,
 				B037368E13D2511000EC2120 /* SavedMapsViewController.m */,
 			);
@@ -192,6 +190,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B059F72113D26A4600820E24 /* iDCMapsAppDelegate.h */,
+				B059F72213D26A4600820E24 /* iDCMapsAppDelegate.m */,
 				B019969F13D259D700C1CBA9 /* MainView.xib */,
 				B019968F13D2563800C1CBA9 /* MainWindow.xib */,
 				280E754A0DD40C5E005A515E /* FlipsideView.xib */,
@@ -333,7 +333,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* SampleMapAppDelegate.m in Sources */,
 				289233A60DB2D0840083E9F9 /* FlipsideView.m in Sources */,
 				289233A70DB2D0840083E9F9 /* MainView.m in Sources */,
 				289233B00DB2D0DB0083E9F9 /* FlipsideViewController.m in Sources */,
@@ -343,6 +342,7 @@
 				B037369013D2511000EC2120 /* SavedMapsViewController.m in Sources */,
 				B019969B13D259C700C1CBA9 /* MainViewController.m in Sources */,
 				B019969E13D259D000C1CBA9 /* RootViewController.m in Sources */,
+				B059F72313D26A4600820E24 /* iDCMapsAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

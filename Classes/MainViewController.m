@@ -4,17 +4,20 @@
 //
 
 #import "MainViewController.h"
-#import "SampleMapAppDelegate.h"
+#import "iDCMapsAppDelegate.h"
 
 #import "MainView.h"
 
 #import "RMCloudMadeMapSource.h"
 #import "RMOpenCycleMapSource.h"
+#import "Map.h"
+
 
 @implementation MainViewController
 
 @synthesize mapView;
 @synthesize infoTextView;
+@synthesize managedObjectContext;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
@@ -27,7 +30,14 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     
+    if (managedObjectContext == nil) 
+    { 
+        managedObjectContext = [(iDCMapsAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext]; 
+        NSLog(@"After managedObjectContext: %@",  managedObjectContext);
+    }
+
     if (!locationManager)
     {
         locationManager = [[CLLocationManager alloc] init];
@@ -109,6 +119,51 @@
 						   [[contents tileSource] shortAttribution]
 						   ]];
 }
+
+/**
+ Add a map to the list
+ */
+- (void)addMap {
+    
+	NSLog(@"add map to list");
+    
+	/*
+	 Create a new instance of the Map entity.
+	 */
+	Map *newMap = (Map *)[NSEntityDescription insertNewObjectForEntityForName:@"Map" inManagedObjectContext:managedObjectContext];
+	
+    
+	// If it's not possible to get a location, then start with it blank.
+	CLLocation *location = [locationManager location];
+	if (!location) {
+        //		return;
+        [newMap setCenterLat:nil];
+        [newMap setCenterLong:nil];
+	} else {
+        
+        // Configure the new event with information from the location.
+        CLLocationCoordinate2D coordinate = [location coordinate];
+        [newMap setCenterLat:[NSNumber numberWithDouble:coordinate.latitude]];
+        [newMap setCenterLong:[NSNumber numberWithDouble:coordinate.longitude]];
+    }
+    
+	// Should be the location's timestamp, but this will be constant for simulator.
+	// [event setCreationDate:[location timestamp]];
+        
+	// Commit the change.
+	NSError *error;
+	if (![managedObjectContext save:&error]) {
+		// Handle the error.
+	}
+	
+	/*
+	 Since this is a new event, and events are displayed with most recent events at the top of the list,
+	 add the new event to the beginning of the events array; then redisplay the table view.
+	 */
+    NSLog(@"added");
+    
+}
+
 
 #pragma mark -
 #pragma mark Delegate methods
