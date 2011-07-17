@@ -27,6 +27,19 @@
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (!locationManager)
+    {
+        locationManager = [[CLLocationManager alloc] init];
+        locationManager.delegate = self;
+        locationManager.distanceFilter = 10; // 1000 = kilometer
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+    }
+    
+    [locationManager startUpdatingLocation];
+    NSLog (@"Locating started");
+
+
     [mapView setDelegate:self];
 //	id myTilesource = [[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:999] autorelease];
     id myTilesource = [[[RMOpenCycleMapSource alloc] init] autorelease];
@@ -34,13 +47,25 @@
 	[[[RMMapContents alloc] initWithView:mapView 
 							  tilesource:myTilesource] autorelease];
     
+
     /* -- Uncomment to constrain view
     [mapView setConstraintsSW:((CLLocationCoordinate2D){-33.942221,150.996094}) 
                            NE:((CLLocationCoordinate2D){-33.771157,151.32019})]; */
     
+
+//    CLLocation *location = [[CLLocation alloc] init];
+    
+
     [self updateInfo];
 }
 
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
+    CLLocationCoordinate2D coordinate = newLocation.coordinate;
+    [[mapView contents] moveToLatLong:coordinate];
+    
+    [self updateInfo];
+
+}
 
 /*
  // Override to allow orientations other than the default portrait orientation.
