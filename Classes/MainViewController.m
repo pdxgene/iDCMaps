@@ -28,6 +28,60 @@
 }
 
 - (IBAction)saveMap{
+    RMMapContents *contents = self.mapView.contents;
+    CLLocationCoordinate2D mapCenter = [contents mapCenter];
+    float lon = mapCenter.longitude;
+    float lat = mapCenter.latitude;
+
+    int z = contents.zoom;
+
+    int solx = (int)(floor((lon + 180.0) / 360.0 * pow(2.0, z)));
+    int soly = (int)(floor((1.0 - log( tan(lat * M_PI/180.0) + 1.0 / cos(lat * M_PI/180.0)) / M_PI) / 2.0 * pow(2.0, z)));
+    
+    NSLog(@"solx = %d", solx);
+    NSLog(@"soly = %d", soly);
+    NSLog(@"zoom = %d", z);
+
+//Neighbor tiles    
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx+1, soly+1);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx+1, soly-1);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx, soly+1);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx+1, soly);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx, soly);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx-1, soly);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx, soly-1);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx-1, soly+1);
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", z, solx-1, soly-1);
+    
+
+    //down two levels
+    int zl = z+2;
+    //4x,4y
+    int solxl = 4*solx;
+    int solyl = 4*soly;
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", zl, solxl, solyl);
+    //2x+1, 2y
+    //2x,2y+1
+    //2x+1, 2y+1
+    
+    
+    //up one level
+    int zu = z-1;
+    int solxu = solx/2;
+    int solyu = soly/2;
+    int solx1u = solx/2 + 1;
+    int soly1u = soly/2 + 1;
+
+    //x/2,y/2
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", zu, solxu, solyu);
+    //x/2+1, y/2
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", zu, solx1u, solyu);
+    //x/2,y/2+1
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", zu, solxu, soly1u);
+    //x/2+1, 2y+1
+    NSLog(@"url: http://c.tile.openstreetmaps.org/%d/%d/%d.png", zu, solx1u, soly1u);
+
+    
     [self addMap];
 }
 
@@ -55,8 +109,8 @@
 
 
     [mapView setDelegate:self];
-//	id myTilesource = [[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:999] autorelease];
-    id myTilesource = [[[RMOpenCycleMapSource alloc] init] autorelease];
+	id myTilesource = [[[RMCloudMadeMapSource alloc] initWithAccessKey:@"0199bdee456e59ce950b0156029d6934" styleNumber:999] autorelease];
+//    id myTilesource = [[[RMOpenCycleMapSource alloc] init] autorelease];
 	// have to initialize the RMMapContents object explicitly if we want it to use a particular tilesource
 	[[[RMMapContents alloc] initWithView:mapView 
 							  tilesource:myTilesource] autorelease];
